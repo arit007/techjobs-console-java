@@ -2,6 +2,7 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -74,7 +75,7 @@ public class TechJobs {
 
         Integer choiceIdx;
         Boolean validChoice = false;
-        String[] choiceKeys = new String[choices.size()];
+        String[] choiceKeys = new String[choices.size()];  // this is probably important
 
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
@@ -109,8 +110,34 @@ public class TechJobs {
     }
 
     // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    private static void printJobs(ArrayList<HashMap<String, String> > someJobs) {
+        if (someJobs.size() > 0){
+            for (HashMap<String, String> job : someJobs) {
+                System.out.println("*****");
+                for (Map.Entry<String, String> jobField : job.entrySet()) {
 
-        System.out.println("printJobs is not implemented yet");
+                    System.out.println(jobField.getKey() + " : " + jobField.getValue());
+                }
+            }
+        }
+        else {
+            System.out.println("No items matching search term found.");
+        }
+
+//
+//        if (someJobs.size() !=0){
+//            for (HashMap<String, String> job : someJobs) { //HashMap for one job
+//                System.out.println("\n*****");
+//                for (Map.Entry<String, String> record : job.entrySet()) {  //Map containing one piece of information about the job
+//                    System.out.println(record.getKey() + ": " + record.getValue());
+//                }
+//                System.out.println("*****");
+//            }
+//        } else {
+//            System.out.println("\nNo results");
+//        }
+
+        }
+
     }
-}
+
