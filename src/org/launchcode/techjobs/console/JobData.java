@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -75,7 +75,8 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String original_value = row.get(column);
+            String aValue = original_value.toLowerCase();
 
             if (aValue.contains(value)) {
                 jobs.add(row);
@@ -89,22 +90,26 @@ public class JobData {
      * Read in data from a CSV file and store it in a list
      */
 
-    public static ArrayList<HashMap<String, String>> findByValue(String value){
+    public static ArrayList<HashMap<String, String>> findByValue (String searchTerm) {
+
 
         loadData();
 
-        ArrayList<HashMap <String,String> > jobs = new ArrayList<>();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
 
         for (HashMap<String, String> job : allJobs) {
-            for (Map.Entry<String, String> jobHash : job.entrySet()){
-                if (jobHash.getValue().toLowerCase().contains(value.toLowerCase())){
-                    if(!jobs.contains(job)){
-                        jobs.add(job);
-
-
-
-                    }
+            boolean containsTerm = false;
+            for (Map.Entry<String, String> row : job.entrySet()) {
+                String original_value = row.getValue();
+                String value = original_value.toLowerCase();
+                if (value.contains(searchTerm)) {
+                    containsTerm = true;
+                    break;
                 }
+            }
+            if (containsTerm) {
+                jobs.add(job);
             }
         }
         return jobs;

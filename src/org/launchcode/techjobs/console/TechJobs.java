@@ -1,3 +1,4 @@
+
 package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -59,8 +60,8 @@ public class TechJobs {
 
                 // What is their search term?
                 System.out.println("\nSearch term: ");
-                String searchTerm = in.nextLine();
-
+                String userSearchTerm = in.nextLine();
+                String searchTerm = userSearchTerm.toLowerCase();
                 if (searchField.equals("all")) {
                     System.out.println("Search all fields not yet implemented.");
                 } else {
@@ -75,7 +76,7 @@ public class TechJobs {
 
         Integer choiceIdx;
         Boolean validChoice = false;
-        String[] choiceKeys = new String[choices.size()];  // this is probably important
+        String[] choiceKeys = new String[choices.size()];
 
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
@@ -104,40 +105,23 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
-    // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String> > someJobs) {
-        if (someJobs.size() > 0){
-            for (HashMap<String, String> job : someJobs) {
-                System.out.println("*****");
-                for (Map.Entry<String, String> jobField : job.entrySet()) {
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-                    System.out.println(jobField.getKey() + " : " + jobField.getValue());
-                }
+        if (someJobs.size() == 0) {
+            System.out.println("There are no results.");
+        }
+
+        for (HashMap<String, String> job : someJobs) {
+            System.out.println("*****");
+            for (Map.Entry<String, String> row : job.entrySet()) {
+                System.out.println(row.getKey() + ": " + row.getValue());
             }
+            System.out.println("*****\n");
         }
-        else {
-            System.out.println("No items matching search term found.");
-        }
-
-//
-//        if (someJobs.size() !=0){
-//            for (HashMap<String, String> job : someJobs) { //HashMap for one job
-//                System.out.println("\n*****");
-//                for (Map.Entry<String, String> record : job.entrySet()) {  //Map containing one piece of information about the job
-//                    System.out.println(record.getKey() + ": " + record.getValue());
-//                }
-//                System.out.println("*****");
-//            }
-//        } else {
-//            System.out.println("\nNo results");
-//        }
-
-        }
-
     }
-
+}
