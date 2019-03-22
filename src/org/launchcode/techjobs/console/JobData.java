@@ -103,7 +103,7 @@ public class JobData {
             for (Map.Entry<String, String> row : job.entrySet()) {
                 String original_value = row.getValue();
                 String value = original_value.toLowerCase();
-                if (value.contains(searchTerm)) {
+                if (value.contains(searchTerm.toLowerCase())) {
                     containsTerm = true;
                     break;
                 }
